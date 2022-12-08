@@ -1,5 +1,9 @@
 <template>
-    <StyleVariubleProvider>
-        <Nuxt />
-    </StyleVariubleProvider>
+  <StyleVariubleProvider>
+    <Nuxt />
+  </StyleVariubleProvider>
 </template>
+
+<script>
+export default {};
+</script>

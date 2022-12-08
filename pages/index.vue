@@ -1,8 +1,12 @@
 <script>
-
 export default {
-    name: "Index",
-    layout: 'index',
+  name: "Index",
+  layout: "index",
+  computed: {
+    darkMode() {
+      return this.$store.getters["darkMode/darkModeValue"];
+    },
+  },
 };
 </script>
 
@@ -20,21 +24,17 @@ export default {
 </template>
 
 <style scoped>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-items: center;
-    padding: 20px;
-    font-family: var(--regular-font);
-    background-color: var(--main-background-color);
-  }
-  header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  h1 {
-
-  }
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-items: center;
+  padding: 20px;
+  font-family: var(--regular-font);
+}
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>
