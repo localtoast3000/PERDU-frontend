@@ -19,6 +19,7 @@ export default {
         ><span class="header-bottom">WE SAY NO WAY!</span>
       </h1>
     </header>
+    <SvgTwoPeople />
     <div></div>
   </main>
 </template>
@@ -36,5 +37,17 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+}
+h1 {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--header-font);
+  font-weight: 600;
+  font-size: 2.4rem;
+  text-shadow: 0px 0px 3px var(--shadow-color);
+}
+.header-bottom {
+  margin-top: 20px;
 }
 </style>

@@ -18,25 +18,15 @@ export default {
 </script>
 
 <template>
-  <div
-    :class="[
-      'style-variuble-container',
-      'typography',
-      darkMode ? 'dark' : 'light',
-    ]"
-  >
+  <div class="style-variuble-container">
     <Style>{{
-      `body { background:  ${
-        darkMode ? darkBackgroundColor : lightBackgroundColor
-      } }`
-    }}</Style>
-    <slot />
-  </div>
-</template>
+      `
+${darkMode ? '@import "theme/dark.css"' : '@import "theme/light.css"'};
+@import "typography.css";
 
-<style>
-@import "../style_variubles/theme.css";
-@import "../style_variubles/typography.css";
+body {
+  background: var(--body-background);
+}
 
 .style-variuble-container {
   padding: 0;
@@ -44,4 +34,8 @@ export default {
   box-sizing: border-box;
   width: 100%;
 }
-</style>
+`
+    }}</Style>
+    <slot />
+  </div>
+</template>

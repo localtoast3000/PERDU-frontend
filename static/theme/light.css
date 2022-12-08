@@ -1,0 +1,17 @@
+:root {
+  --primary-color: #6c63ff;
+  --secondary-color: #3f3d56;
+  --subtle-color: #e6e6e6;
+  --shadow-color: #828282;
+  --bold-color: white;
+  --contrast-bold-color: black;
+  --error: #fa6666;
+
+  --body-background: white;
+  --logo-color: #6c63ff;
+
+  /* INDEX */
+  --landing-txt-color: var(--contrast-bold-color);
+  --signup-btn-color: var(--primary-color);
+  --login-btn-color: var(--bold-color);
+}

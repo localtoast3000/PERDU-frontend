@@ -3,7 +3,3 @@
     <Nuxt />
   </StyleVariubleProvider>
 </template>
-
-<script>
-export default {};
-</script>

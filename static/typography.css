@@ -1,0 +1,6 @@
+@import "./fonts/OpenSans/open_sans.css";
+
+:root {
+  --regular-font: "open-sans";
+  --header-font: "open-sans-extrabold";
+}
