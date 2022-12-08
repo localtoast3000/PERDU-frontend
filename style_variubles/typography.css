@@ -1,0 +1,5 @@
+@import '../assets/fonts/OpenSans/open_sans.css';
+
+.typography {
+    --regular-font: 'open-sans' 
+}

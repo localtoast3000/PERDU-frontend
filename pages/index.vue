@@ -1,16 +1,16 @@
 <script>
+
 export default {
-  name: "Index",
+    name: "Index",
+    layout: 'index',
 };
 </script>
 
-<style scoped></style>
-
 <template>
-  <main class="main-container">
-    <header class="header-container">
-      <SvgLogo className="logo" :scale="2" color="var(--primary)" />
-      <h1 class="header">
+  <main>
+    <header>
+      <SvgLogo className="logo" :scale="1.5" color="var(--logo-color)" />
+      <h1>
         <span class="header-top">THINK YOUR LOST ITEMS ARE GONE FOR GOOD?</span
         ><span class="header-bottom">WE SAY NO WAY!</span>
       </h1>
@@ -18,3 +18,23 @@ export default {
     <div></div>
   </main>
 </template>
+
+<style scoped>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: center;
+    padding: 20px;
+    font-family: var(--regular-font);
+    background-color: var(--main-background-color);
+  }
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+
+  }
+</style>
