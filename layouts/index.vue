@@ -1,5 +1,7 @@
 <template>
-  <StyleVariubleProvider>
-    <Nuxt />
-  </StyleVariubleProvider>
+  <v-app>
+    <StyleVariubleProvider>
+      <Nuxt />
+    </StyleVariubleProvider>
+  </v-app>
 </template>

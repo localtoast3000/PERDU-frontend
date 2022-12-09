@@ -20,11 +20,16 @@ export default {
       </h1>
     </header>
     <SvgTwoPeople />
-    <div></div>
+    <div class="bottom-container">
+      <p>Declare any lost items with us and we can help you recover them</p>
+      <v-btn class="signup-btn" height="40">Sign up</v-btn>
+      <v-btn class="login-btn" outlined height="40">Login</v-btn>
+    </div>
   </main>
 </template>
 
 <style scoped>
+
 main {
   display: flex;
   flex-direction: column;
@@ -50,4 +55,21 @@ h1 {
 .header-bottom {
   margin-top: 20px;
 }
+.bottom-container {
+  display: flex;
+  flex-direction: column;
+}
+p {
+  font-family: var(--semi-bold-font);
+}
+.signup-btn {
+  background: var(--primary-color) !important;
+  color: white !important;
+}
+.login-btn {
+  background: transparent !important;
+  color: black !important;
+  margin-top: 20px;
+}
 </style>
+
