@@ -7,7 +7,8 @@ export default {
     },
   },
   mounted() {
-    this.checkUserIsMounted();
+    if (typeof this.checkUserIsMounted === "function")
+      this.checkUserIsMounted();
   },
 };
 </script>

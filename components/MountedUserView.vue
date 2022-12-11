@@ -7,7 +7,9 @@ export default {
     },
   },
   mounted() {
-    this.checkUserIsMounted();
+    console.log(this.$store);
+    if (typeof this.checkUserIsMounted === "function")
+      this.checkUserIsMounted();
   },
 };
 </script>

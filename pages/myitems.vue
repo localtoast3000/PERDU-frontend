@@ -1,6 +1,8 @@
 <script>
+import TwoPeople from "../components/svg/TwoPeople.vue";
 export default {
-  name: "Home",
+  components: { TwoPeople },
+  name: "MyItems",
   computed: {
     darkMode() {
       return this.$store.getters["darkMode/darkModeValue"];
@@ -16,9 +18,6 @@ export default {
         <header>
           <TopNavBar />
         </header>
-        <div class="items-container">
-          <Item />
-        </div>
       </div>
     </main>
   </MountedUserView>
