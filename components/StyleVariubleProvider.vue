@@ -1,9 +1,5 @@
 <script>
 export default {
-  props: {
-    darkBackgroundColor: String,
-    lightBackgroundColor: String,
-  },
   computed: {
     darkMode() {
       return this.$store.state.darkMode.value;
@@ -18,24 +14,23 @@ export default {
 </script>
 
 <template>
-  <div class="style-variuble-container">
+  <div :class="['style-variuble-container', darkMode ? 'dark' : 'light']">
     <Style>{{
       `
-${darkMode ? '@import "theme/dark.css"' : '@import "theme/light.css"'};
-@import "typography.css";
-
 body {
   background: var(--body-background);
-}
-
-.style-variuble-container {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  width: 100%;
 }
 `
     }}</Style>
     <slot />
   </div>
 </template>
+
+<style scoped>
+.style-variuble-container {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+</style>

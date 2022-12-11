@@ -1,4 +1,4 @@
-:root {
+.light {
   --primary-color: #6c63ff;
   --secondary-color: #3f3d56;
   --subtle-color: #e6e6e6;
@@ -11,7 +11,18 @@
   --logo-color: #6c63ff;
 
   /* INDEX */
+
   --landing-txt-color: var(--contrast-bold-color);
   --signup-btn-color: var(--primary-color);
   --login-btn-color: var(--bold-color);
+
+  /* Two People SVG */
+  --twopeople-skin1: #ffb6b6;
+  --twopeople-skin2: #9e616a;
+  --twopeople-secondary: #2f2e41;
+  --twopeople-leaf: #e6e6e6;
+  --twopeople-spacer: white;
+  --twopeople-bg-stuff: #f2f2f2;
+  --twopeople-third: #cccccc;
+  --twopeople-fourth: #3f3d56;
 }
