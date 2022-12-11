@@ -15,13 +15,6 @@ export default {
 
 <template>
   <div :class="['style-variuble-container', darkMode ? 'dark' : 'light']">
-    <Style>{{
-      `
-body {
-  background: var(--body-background);
-}
-`
-    }}</Style>
     <slot />
   </div>
 </template>

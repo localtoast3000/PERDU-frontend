@@ -1,7 +1,5 @@
 <script>
-import TwoPeople from "../components/svg/TwoPeople.vue";
 export default {
-  components: { TwoPeople },
   name: "MyItems",
   computed: {
     darkMode() {

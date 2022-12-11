@@ -1,9 +1,14 @@
 <script>
 export default {
+  props: {
+    user: {
+      type: Object | Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       menuOpen: false,
-      user: this.$store.getters["user/getUser"],
     };
   },
   methods: {
@@ -22,7 +27,7 @@ export default {
         @click="toggleMenu"
       ></v-app-bar-nav-icon>
       <div class="id-wrapper">
-        <p>{{ `${user.firstName}, ${user.lastName}` }}</p>
+        <p>{{ this.user ? `${user.firstName} ${user.lastName}` : "" }}</p>
         <SvgIdImage className="id-image" :scale="0.7" />
       </div>
     </v-toolbar>
@@ -34,16 +39,15 @@ export default {
     </div>
   </div>
 </template>
+
 <style scoped>
-main {
-  width: 100%;
-}
 .menu {
   position: absolute;
   background: var(--bold-color);
   box-shadow: 2px 2px 5px rgb(151, 151, 151);
   background: var(--primary-color);
   transition: all 0.2s ease-in;
+  z-index: 9999;
 }
 
 .menu-options-container {
@@ -70,7 +74,6 @@ main {
 }
 .id-wrapper p {
   color: white;
-  margin-top: 20px;
 }
 
 .menu-open {

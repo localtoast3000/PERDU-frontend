@@ -1,0 +1,32 @@
+* ::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+p {
+  margin-bottom: 0 !important;
+}
+#__nuxt {
+  width: 100% !important;
+}
+#__layout,
+#app,
+.v-application--wrap,
+.style-variuble-container {
+  width: 100% !important;
+}
+.text .error--text {
+  color: var(--error) !important;
+  caret-color: var(--error) !important;
+  border-color: var(--error) !important;
+  outline-color: var(--error) !important;
+}
+
+body {
+  background: var(--body-background) !important;
+}

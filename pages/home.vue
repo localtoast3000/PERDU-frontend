@@ -1,6 +1,11 @@
 <script>
 export default {
   name: "Home",
+  data() {
+    return {
+      user: this.$store.getters["user/getUser"],
+    };
+  },
   computed: {
     darkMode() {
       return this.$store.getters["darkMode/darkModeValue"];
@@ -14,11 +19,19 @@ export default {
     <main>
       <div class="main-wrapper">
         <header>
-          <TopNavBar />
+          <TopNavBar :user="user" />
         </header>
         <div class="items-container">
-          <Item />
+          <Item v-if="user.items?.length > 0" category="Laptop" />
+          <p v-else>No lost items added</p>
         </div>
+        <v-btn
+          class="report-item-btn"
+          height="50"
+          :nuxt="true"
+          href="/reportitem"
+          >Report an item</v-btn
+        >
       </div>
     </main>
   </MountedUserView>
@@ -40,5 +53,18 @@ main {
 }
 header {
   width: 100%;
+  margin-bottom: 50px;
+}
+.items-container {
+  width: 100%;
+  max-width: 400px;
+  min-height: 300px;
+  height: auto;
+}
+.report-item-btn {
+  background: var(--primary-color) !important;
+  color: white !important;
+  font-family: var(--regular-font) !important;
+  font-size: 1rem;
 }
 </style>
