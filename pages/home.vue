@@ -16,13 +16,16 @@ export default {
 
 <template>
   <MountedUserView>
+    <TopNavBar :user="user" />
     <main>
       <div class="main-wrapper">
-        <header>
-          <TopNavBar :user="user" />
-        </header>
+        <header></header>
+        <h2 class="page-header">Last item added</h2>
         <div class="items-container">
-          <Item v-if="user.items?.length > 0" :item="user.items[0]" />
+          <Item
+            v-if="user.items?.length > 0"
+            :item="user.items[user.items.length - 1]"
+          />
           <p v-else>No lost items added</p>
         </div>
         <v-btn
@@ -44,6 +47,7 @@ main {
   align-items: center;
   font-family: var(--regular-font);
   width: 100%;
+  padding: 10px;
 }
 .main-wrapper {
   display: flex;
@@ -53,7 +57,6 @@ main {
 }
 header {
   width: 100%;
-  margin-bottom: 50px;
 }
 .items-container {
   width: 100%;
@@ -66,5 +69,9 @@ header {
   color: white !important;
   font-family: var(--regular-font) !important;
   font-size: 1rem;
+}
+.page-header {
+  width: 100%;
+  padding: 20px;
 }
 </style>

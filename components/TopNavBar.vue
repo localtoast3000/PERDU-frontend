@@ -37,6 +37,7 @@ export default {
     </v-toolbar>
     <div :class="['menu', menuOpen ? 'menu-open' : 'menu-closed']">
       <ul class="menu-options-container">
+        <SvgLogo color="white" :scale="0.7" />
         <li><NuxtLink to="/home">Home</NuxtLink></li>
         <li><NuxtLink to="/myitems">My items</NuxtLink></li>
         <li><button class="logout-btn" @click="logOut">Log out</button></li>
@@ -86,9 +87,21 @@ export default {
 }
 .menu-closed {
   position: absolute;
-  top: -200px;
+  top: -300px;
 }
 .logout-btn {
   color: white;
+}
+@media (min-width: 800px) {
+  .menu-open {
+    position: absolute;
+    left: 0;
+    width: 300px;
+    height: 100%;
+  }
+  .menu-closed {
+    position: absolute;
+    left: -300px;
+  }
 }
 </style>

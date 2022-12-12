@@ -89,7 +89,6 @@ export default {
         declared: this.formValues.declared,
       });
       if (res.result) {
-        console.log(res);
         this.$store.commit("user/mountUser", res.user);
         this.$router.push("/myitems");
       }

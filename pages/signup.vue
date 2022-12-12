@@ -151,6 +151,10 @@ export default {
           >Create account</v-btn
         >
       </v-form>
+      <div class="bottom-links">
+        <p>Have an account already ?</p>
+        <NuxtLink class="bottom-link" to="/login">Login</NuxtLink>
+      </div>
     </main>
   </UnmountedUserView>
 </template>
@@ -240,5 +244,13 @@ header {
   font-family: var(--regular-font) !important;
   font-size: 1rem;
   margin-top: 10px;
+}
+.bottom-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bottom-link {
+  color: black;
 }
 </style>

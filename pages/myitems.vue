@@ -16,11 +16,12 @@ export default {
 
 <template>
   <MountedUserView>
+    <header>
+      <TopNavBar :user="user" />
+    </header>
     <main>
       <div class="main-wrapper">
-        <header>
-          <TopNavBar :user="user" />
-        </header>
+        <h2 class="page-header">My items</h2>
         <div class="items-container" v-if="user?.items?.length > 0">
           <Item v-for="(item, index) in user.items" :key="index" :item="item" />
         </div>
@@ -39,6 +40,7 @@ main {
   align-items: center;
   font-family: var(--regular-font);
   width: 100%;
+  padding: 10px;
 }
 .main-wrapper {
   display: flex;
@@ -47,13 +49,19 @@ main {
   width: 100%;
 }
 .items-container {
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
-  max-width: 400px;
   min-height: 300px;
   height: auto;
+  align-items: center;
+  justify-content: center;
 }
 header {
   width: 100%;
-  margin-bottom: 50px;
+}
+.page-header {
+  width: 100%;
+  padding: 20px;
 }
 </style>

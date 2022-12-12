@@ -23,9 +23,15 @@ export default {
 </script>
 <template>
   <div class="item-body">
+    <v-btn class="edit-btn" icon @click="relocateToUpdatePage"
+      ><v-icon size="18">mdi-pen</v-icon></v-btn
+    >
     <div class="top-wrapper">
       <div class="image-container">
-        <component :is="determineImage"></component>
+        <component
+          :is="determineImage"
+          v-bind="{ className: 'svg-image', scale: 0.8 }"
+        ></component>
       </div>
       <div class="item-details-right">
         <div class="item-row">
@@ -43,7 +49,6 @@ export default {
           <p class="item-value">{{ value }}</p>
         </div>
       </div>
-      <v-btn icon @click="relocateToUpdatePage"><v-icon>mdi-pen</v-icon></v-btn>
     </div>
     <div class="item-details-bottom">
       <div class="item-row">
@@ -70,20 +75,27 @@ export default {
 .item-body {
   display: flex;
   flex-direction: column;
-  border: solid 1px black;
-  color: black;
+  box-shadow: 0px 4px 8px rgb(195, 195, 195);
   width: 100%;
-  padding: 10px;
+  padding: 20px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+.edit-btn {
+  margin-left: auto;
+  height: 20px;
+  width: 20px;
+  margin-bottom: 10px;
 }
 .top-wrapper {
   display: flex;
-  width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .item-details-right {
-  width: 100%;
-  margin-left: 10px;
-  font-size: 0.9rem;
+  margin-left: auto;
+  font-size: 0.7rem;
 }
 .item-row {
   display: flex;
@@ -94,7 +106,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  width: 130px;
+  min-width: 50px;
   font-family: var(--semi-bold-font);
   margin-right: 10px;
 }
@@ -102,6 +114,16 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  width: 100%;
+}
+.image-container {
+  display: flex;
+  align-items: center;
+}
+.svg-image {
+}
+@media (min-width: 800px) {
+  .item-body {
+    margin: 10px;
+  }
 }
 </style>
