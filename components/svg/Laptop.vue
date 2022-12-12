@@ -20,6 +20,7 @@ export default {
     :width="107 * (scale < 0.1 ? 1 : scale)"
     :height="81 * (scale < 0.1 ? 1 : scale)"
     viewBox="0 0 107 81"
+    :class="className"
     fill="none"
   >
     <path

@@ -1,5 +1,5 @@
 <script>
-import { postData, deleteData } from "../../api/backend_requests";
+import { updateData, deleteData } from "../../api/backend_requests";
 import { availableCategories } from "../../lib/data";
 import { format, parseISO } from "date-fns";
 
@@ -20,8 +20,8 @@ export default {
           model: "",
           colour: "",
           condition: "",
-          isFound: false,
         },
+        isFound: false,
       },
       validation: {
         address: [(v) => typeof v === "string" || "Invalid address"],
@@ -57,11 +57,13 @@ export default {
   methods: {
     async submitForm() {
       if (!this.$refs.form.validate()) return;
-      const res = await postData("/items/update", {
+      const res = await updateData("/items/update", {
         token: this.user.token,
+        id: this.item.id,
         address: this.formValues.address,
         details: this.formValues.details,
         declared: this.formValues.declared,
+        isFound: this.formValues.isFound,
       });
       if (res.result) {
         console.log(res);
@@ -76,7 +78,6 @@ export default {
         id: this.item.id,
       });
       if (res.result) {
-        console.log(res);
         this.$store.commit("user/mountUser", res.user);
         this.$router.push("/myitems");
       }
@@ -92,6 +93,7 @@ export default {
       this.formValues.details.model = this.item.details.model;
       this.formValues.details.colour = this.item.details.colour;
       this.formValues.details.condition = this.item.details.condition;
+      this.formValues.isFound = this.item.isFound;
     },
     determineImage() {
       if (!availableCategories.includes(this.item.category))
