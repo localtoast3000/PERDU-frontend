@@ -17,7 +17,7 @@ export default {
     },
     logOut() {
       this.$store.commit("user/dismountUser");
-      this.$router.push("/");
+      this.$router.push("/index");
     },
   },
 };

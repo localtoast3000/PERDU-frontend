@@ -1,7 +1,7 @@
 // Change serverURL to your own IP address if running the server on your
 // local machine else change to the URL of the deployed server
 
-export const serverURL = `http://localhost:8000`;
+export const serverURL = `https://perdu-backend-55j5raabk-mrcraigchick.vercel.app`;
 
 function constructURL(endpoint) {
   return `${serverURL}${endpoint}`;
