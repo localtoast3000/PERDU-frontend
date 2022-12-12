@@ -1,18 +1,18 @@
 <script>
-import { postData } from "../api/backend_requests";
-import { availableCategories } from "../lib/data";
+import { postData, deleteData } from "../../api/backend_requests";
+import { availableCategories } from "../../lib/data";
 import { format, parseISO } from "date-fns";
 
 export default {
   name: "ReportItem",
   data() {
     return {
+      item: {},
       availableCategories,
       user: this.$store.getters["user/getUser"],
       submitError: false,
       datepickerMenu: false,
       formValues: {
-        category: "",
         address: "",
         declared: "",
         details: {
@@ -20,17 +20,10 @@ export default {
           model: "",
           colour: "",
           condition: "",
-        },
-        authentication: {
-          secretQuestion: "",
-          secretAnswer: "",
+          isFound: false,
         },
       },
       validation: {
-        category: [
-          (v) => !!v || "Category is required",
-          (v) => typeof v === "string" || "Invalid Category",
-        ],
         address: [(v) => typeof v === "string" || "Invalid address"],
         declared: [
           (v) => !!v || "Date lost is required",
@@ -48,22 +41,6 @@ export default {
           (v) => !!v || "A condition description is required",
           (v) => typeof v === "string" || "Invalid condition",
         ],
-        secretQuestion: [
-          (v) => {
-            return this.formValues.authentication.secretAnswer
-              ? !!v || "A secret question is required"
-              : true;
-          },
-          (v) => typeof v === "string" || "Invalid question",
-        ],
-        secretAnswer: [
-          (v) => {
-            return this.formValues.authentication.secretQuestion
-              ? !!v || "A secret answer is required"
-              : true;
-          },
-          (v) => typeof v === "string" || "Invalid answer",
-        ],
       },
     };
   },
@@ -80,12 +57,10 @@ export default {
   methods: {
     async submitForm() {
       if (!this.$refs.form.validate()) return;
-      const res = await postData("/items/add", {
+      const res = await postData("/items/update", {
         token: this.user.token,
-        category: this.formValues.category,
         address: this.formValues.address,
         details: this.formValues.details,
-        authentication: this.formValues.authentication,
         declared: this.formValues.declared,
       });
       if (res.result) {
@@ -95,6 +70,42 @@ export default {
       }
       this.submitError = res.error;
     },
+    async submitDeleteItem() {
+      const res = await deleteData(`/items/remove`, {
+        token: this.user.token,
+        id: this.item.id,
+      });
+      if (res.result) {
+        console.log(res);
+        this.$store.commit("user/mountUser", res.user);
+        this.$router.push("/myitems");
+      }
+      this.submitError = res.error;
+    },
+    resetFields() {
+      this.formValues.address = this.item.address;
+      this.formValues.declared = format(
+        new Date(this.item.declared),
+        "yyyy-MM-dd"
+      );
+      this.formValues.details.brand = this.item.details.brand;
+      this.formValues.details.model = this.item.details.model;
+      this.formValues.details.colour = this.item.details.colour;
+      this.formValues.details.condition = this.item.details.condition;
+    },
+    determineImage() {
+      if (!availableCategories.includes(this.item.category))
+        return () => import("../../components/svg/DefaultItem.vue");
+      return () => import(`../../components/svg/${this.item.category}.vue`);
+    },
+  },
+  created() {
+    if (this.user) {
+      this.item = this.user.items.find(
+        ({ id }) => id === this.$route.params.id
+      );
+      this.resetFields();
+    }
   },
 };
 </script>
@@ -105,18 +116,14 @@ export default {
       <TopNavBar :user="user" />
     </header>
     <main>
+      <div>
+        <p>{{ item.category }}</p>
+        <div class="image-container">
+          <component :is="determineImage"></component>
+        </div>
+      </div>
       <p class="submit-error">{{ submitError ? submitError : "" }}</p>
       <v-form class="form-container" ref="form">
-        <v-select
-          class="select-field select-container"
-          content-class="select-options"
-          v-model="formValues.category"
-          :items="availableCategories"
-          :rules="validation.category"
-          label="Category"
-          color="var(--primary-color)"
-          item-color="#6c63ff"
-        ></v-select>
         <v-text-field
           class="text-field"
           v-model="formValues.address"
@@ -187,36 +194,25 @@ export default {
             :rules="validation.condition"
           ></v-select>
         </div>
-        <div class="authentication">
-          <p>Authentication</p>
-          <v-select
-            class="select-field"
-            v-model="formValues.authentication.secretQuestion"
-            label="Secret question"
-            color="var(--primary-color)"
-            :rules="validation.secretQuestion"
-            :items="[
-              'What is the name of your first pet?',
-              `What is your mother's maiden name?`,
-              'What was the make of your first car?',
-              'What was your favorite food as a child?',
-            ]"
-            item-color="#6c63ff"
-          ></v-select>
-          <v-text-field
-            class="text-field"
-            v-model="formValues.authentication.secretAnswer"
-            label="Secret answer"
-            color="var(--primary-color)"
-            :rules="validation.secretAnswer"
-          ></v-text-field>
-        </div>
+        <v-checkbox
+          class="found-checkbox"
+          v-model="formValues.isFound"
+          label="Found"
+          color="var(--primary-color)"
+        ></v-checkbox>
         <v-btn
           type="submit"
           @click.stop.prevent="submitForm"
           class="submit-btn"
           height="50"
-          >Report item</v-btn
+          >Update</v-btn
+        >
+        <v-btn
+          type="submit"
+          @click.stop.prevent="submitDeleteItem"
+          class="delete-btn"
+          height="50"
+          >Delete</v-btn
         >
       </v-form>
     </main>
@@ -280,6 +276,17 @@ header {
   font-family: var(--regular-font) !important;
   font-size: 1rem;
   margin-top: 10px;
+}
+.delete-btn {
+  background: var(--error) !important;
+  color: white !important;
+  font-family: var(--regular-font) !important;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+.found-checkbox >>> label {
+  font-size: 0.8rem;
+  margin-left: 10px;
 }
 </style>
 <style>

@@ -1,26 +1,22 @@
 <script>
 import { availableCategories } from "../lib/data";
+import { format } from "date-fns";
 
 export default {
-  props: {
-    category: {
-      type: String,
-      default: "",
-    },
-    detailsSetRight: {
-      type: Array,
-      default: [{ details: "No details" }],
-    },
-    detailsSetBottom: {
-      type: Array,
-      default: [{ details: "No details" }],
-    },
-  },
+  props: { item: Object },
   computed: {
     determineImage() {
-      if (!availableCategories.includes(this.category))
+      if (!availableCategories.includes(this.item.category))
         return () => import("../components/svg/DefaultItem.vue");
-      return () => import(`../components/svg/${this.category}.vue`);
+      return () => import(`../components/svg/${this.item.category}.vue`);
+    },
+  },
+  methods: {
+    formatDeclaredDate() {
+      return format(new Date(this.item.declared), "dd/MM/yyyy");
+    },
+    relocateToUpdatePage() {
+      this.$router.push(`updateitem/${this.item.id}`);
     },
   },
 };
@@ -34,27 +30,37 @@ export default {
       <div class="item-details-right">
         <div class="item-row">
           <p class="item-key">Category :</p>
-          <p class="item-value">{{ category }}</p>
+          <p class="item-value">{{ item.category }}</p>
         </div>
         <div
           class="item-row"
-          v-for="(item, index) in detailsSetRight"
+          v-for="([key, value], index) in Object.entries(item.details)"
           :key="index"
         >
-          <p class="item-key">{{ Object.keys(item)[0] }}</p>
-          <p class="item-value">{{ Object.values(item)[0] }}</p>
+          <p class="item-key">
+            {{ key.replace(key[0], key[0].toUpperCase()) }} :
+          </p>
+          <p class="item-value">{{ value }}</p>
         </div>
       </div>
-      <v-btn icon><v-icon>mdi-close</v-icon></v-btn>
+      <v-btn icon @click="relocateToUpdatePage"><v-icon>mdi-pen</v-icon></v-btn>
     </div>
     <div class="item-details-bottom">
-      <div
-        class="item-row"
-        v-for="(item, index) in detailsSetBottom"
-        :key="index"
-      >
-        <p class="item-key">{{ Object.keys(item)[0] }} :</p>
-        <p class="item-value">{{ Object.values(item)[0] }}</p>
+      <div class="item-row">
+        <p class="item-key">ID :</p>
+        <p class="item-value">{{ item.id }}</p>
+      </div>
+      <div class="item-row">
+        <p class="item-key">Declared :</p>
+        <p class="item-value">{{ formatDeclaredDate() }}</p>
+      </div>
+      <div class="item-row">
+        <p class="item-key">Address :</p>
+        <p class="item-value">{{ item.address }}</p>
+      </div>
+      <div class="item-row">
+        <p class="item-key">Status :</p>
+        <p class="item-value">{{ !item.isFound ? "lost" : "found" }}</p>
       </div>
     </div>
   </div>

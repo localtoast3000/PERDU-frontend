@@ -22,7 +22,7 @@ export default {
           <TopNavBar :user="user" />
         </header>
         <div class="items-container">
-          <Item v-if="user.items?.length > 0" category="Laptop" />
+          <Item v-if="user.items?.length > 0" :item="user.items[0]" />
           <p v-else>No lost items added</p>
         </div>
         <v-btn

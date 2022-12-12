@@ -15,6 +15,10 @@ export default {
     toggleMenu() {
       this.menuOpen = !this.menuOpen;
     },
+    logOut() {
+      this.$store.commit("user/dismountUser");
+      this.$router.push("/");
+    },
   },
 };
 </script>
@@ -35,6 +39,7 @@ export default {
       <ul class="menu-options-container">
         <li><NuxtLink to="/home">Home</NuxtLink></li>
         <li><NuxtLink to="/myitems">My items</NuxtLink></li>
+        <li><button class="logout-btn" @click="logOut">Log out</button></li>
       </ul>
     </div>
   </div>
@@ -82,5 +87,8 @@ export default {
 .menu-closed {
   position: absolute;
   top: -200px;
+}
+.logout-btn {
+  color: white;
 }
 </style>
